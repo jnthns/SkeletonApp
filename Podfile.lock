@@ -1,0 +1,20 @@
+PODS:
+  - AppLovinSDK (6.8.1)
+  - Leanplum-iOS-SDK (2.5.1)
+
+DEPENDENCIES:
+  - AppLovinSDK
+  - Leanplum-iOS-SDK (= 2.5.1)
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - AppLovinSDK
+    - Leanplum-iOS-SDK
+
+SPEC CHECKSUMS:
+  AppLovinSDK: 2b1120bf7fcf4719f7f76f63ff7ebd83931be854
+  Leanplum-iOS-SDK: 4ab495e9f5199457a4d742e1d52751f0bfe6a17f
+
+PODFILE CHECKSUM: e0875e2837b870051c8d3963b7cf4675a612f77e
+
+COCOAPODS: 1.7.5
