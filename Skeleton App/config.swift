@@ -10,4 +10,3 @@ import Foundation
 
 public let appId = "app_gfD88mt9gXMR1PTDzpBMMsr7MXY8I7tWde89vVea7Lk"
 public let devKey = "dev_pWxc6ve8iOWrHpthJnKMiP2sIjbwejmbLInFca7fzbU"
-public let prodKey = "prod_HpwlqRS2LvknaoUWXJWhJNSoMJ9ooxaUGBsGVRIgS5M"

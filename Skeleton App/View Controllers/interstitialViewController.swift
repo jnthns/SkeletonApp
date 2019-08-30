@@ -18,14 +18,13 @@ class interstitialViewController: rootViewController {
     
     @IBAction func loadInterstitialAd(_ sender: Any) {
         ALSdk.shared()?.adService.loadNextAd(forZoneIdentifier: "cc89ec865881d46d", andNotify: self)
-        
-        Leanplum.track("Interstitial Loaded", withParameters: ["Zone":"Middle"])
     }
     
     @IBAction func showInterstitialAd(_ sender: Any) {
         interstitial.show()
         
-        Leanplum.track("Interstitial Shown", withParameters: ["Zone":"Middle"])
+        count += 1;
+        Leanplum.track("Middle Interstitial Shown", withParameters: ["MI Shown":count])
     }
     
     override func viewDidLoad() {
@@ -33,6 +32,8 @@ class interstitialViewController: rootViewController {
         
         interstitial.adLoadDelegate = self
         interstitial.adDisplayDelegate = self
+        
+        statusLabel.addBackground()
     }
     
 }
@@ -40,27 +41,27 @@ class interstitialViewController: rootViewController {
 extension interstitialViewController : ALAdLoadDelegate
 {
     func adService(_ adService: ALAdService, didLoad ad: ALAd) {
-        log("Interstitial loaded")
+        updateStatus("Interstitial loaded")
         self.ad = ad
     }
     
     func adService(_ adService: ALAdService, didFailToLoadAdWithError code: Int32) {
-        log("Interstitial failed to load")
+        updateStatus("Interstitial failed to load")
     }
 }
 
 extension interstitialViewController : ALAdDisplayDelegate
 {
     func ad(_ ad: ALAd, wasDisplayedIn view: UIView) {
-        log("Interstital was displayed")
+        updateStatus("Interstital was displayed")
     }
     
     func ad(_ ad: ALAd, wasHiddenIn view: UIView) {
-        log("Interstitial was dismissed")
+        updateStatus("Interstitial was dismissed")
     }
     
     func ad(_ ad: ALAd, wasClickedIn view: UIView) {
-        log("Interstitial was pressed")
+        updateStatus("Interstitial was pressed")
     }
     
     

@@ -23,13 +23,16 @@ class bannerViewController: rootViewController {
         adView.adDisplayDelegate = self
         adView.adEventDelegate = self
         adView.translatesAutoresizingMaskIntoConstraints = false
+        
+        statusLabel.addBackground()
     }
     
     @IBAction func showBanner(_ sender: Any) {
+        count += 1;
         adView.loadNextAd()
         self.view.addSubview(adView)
         
-        Leanplum.track("Show Banner", withValue:1)
+        Leanplum.track("Show Banner", withParameters: ["Banners":count])
     }
     
 }
@@ -37,11 +40,11 @@ class bannerViewController: rootViewController {
 extension bannerViewController : ALAdLoadDelegate
 {
     func adService(_ adService: ALAdService, didLoad ad: ALAd) {
-        log("Banner loaded")
+        updateStatus("Banner loaded")
     }
     
     func adService(_ adService: ALAdService, didFailToLoadAdWithError code: Int32) {
-        log("Banner failed to load with error \(code)")
+        updateStatus("Banner failed to load with error \(code)")
     }
     
 }
@@ -49,15 +52,15 @@ extension bannerViewController : ALAdLoadDelegate
 extension bannerViewController : ALAdDisplayDelegate
 {
     func ad(_ ad: ALAd, wasDisplayedIn view: UIView) {
-        log("Banner displayed")
+        updateStatus("Banner displayed")
     }
     
     func ad(_ ad: ALAd, wasHiddenIn view: UIView) {
-        log("Banner dismissed")
+        updateStatus("Banner dismissed")
     }
     
     func ad(_ ad: ALAd, wasClickedIn view: UIView) {
-        log("Banner pressed")
+        updateStatus("Banner pressed")
     }
 }
 
@@ -65,31 +68,31 @@ extension bannerViewController : ALAdViewEventDelegate
 {
     func ad(_ ad: ALAd, didPresentFullscreenFor adView: ALAdView)
     {
-        log("Banner did present fullscreen")
+        updateStatus("Banner did present fullscreen")
     }
     
     func ad(_ ad: ALAd, willDismissFullscreenFor adView: ALAdView)
     {
-        log("Banner will dismiss fullscreen")
+        updateStatus("Banner will dismiss fullscreen")
     }
     
     func ad(_ ad: ALAd, didDismissFullscreenFor adView: ALAdView)
     {
-        log("Banner did dismiss fullscreen")
+        updateStatus("Banner did dismiss fullscreen")
     }
     
     func ad(_ ad: ALAd, willLeaveApplicationFor adView: ALAdView)
     {
-        log("Banner will leave application")
+        updateStatus("Banner will leave application")
     }
     
     func ad(_ ad: ALAd, didReturnToApplicationFor adView: ALAdView)
     {
-        log("Banner returned to application")
+        updateStatus("Banner returned to application")
     }
     
     func ad(_ ad: ALAd, didFailToDisplayIn adView: ALAdView, withError code: ALAdViewDisplayErrorCode)
     {
-        log("Banner failed to display with error code: \(code)")
+        updateStatus("Banner failed to display with error code: \(code)")
     }
 }

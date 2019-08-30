@@ -23,23 +23,27 @@ class topRewardsViewController: rewardsViewController {
         
         topRewards.adDisplayDelegate = self
         topRewards.adVideoPlaybackDelegate = self
+    
+        statusLabel.addBackground()
+
     }
     
     @IBAction func showVideo(_ sender: Any) {
         if topRewards.isReadyForDisplay
         {
             topRewards.showAndNotify(self)
-            Leanplum.track("Rewards Video", withParameters: ["Zone":"Top"])
+            
+            count += 1;
+            Leanplum.track("Top Rewards Video", withParameters: ["TR Shown":count])
         }
         else
         {
-            preloadRewardedVideo()
+            preloadVideo()
         }
     }
     
-    @IBAction func preloadVideo() {
+    func preloadVideo() {
         topRewards.preloadAndNotify(self)
-        Leanplum.track("Preloaded Ad", withParameters: ["Zone":"Top"])
     }
 }
 

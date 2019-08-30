@@ -27,6 +27,10 @@ class rootViewController: UIViewController {
         Leanplum.advance(to: "Elite Rewards Screen")
     }
     
+    @IBAction func topRewards(_ sender: Any) {
+        Leanplum.advance(to: "Top Rewards Screen")
+    }
+    
     @IBAction func middleInterstitial(_ sender: Any) {
         Leanplum.advance(to: "Middle Interstitial Screen")
     }
@@ -35,25 +39,34 @@ class rootViewController: UIViewController {
         Leanplum.advance(to: "Bottom Interstitial Screen")
     }
     
-    @IBAction func topRewards(_ sender: Any) {
-        Leanplum.advance(to: "Top Rewards Screen")
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationController?.isNavigationBarHidden = true
+        
     }
     
-    func log(_ message: String)
+    func updateStatus(_ message: String)
     {
         DispatchQueue.main.async {
-            if let label = self.statusLabel {
-                label.text = message
-            }
+            self.statusLabel.text = message
         }
     }
     
     @IBAction func unwindTorootViewController(_ unwindSegue: UIStoryboardSegue) {
     }
 
+}
+
+extension UIButton {
+    func addBackgroundColor() {
+        layer.backgroundColor = UIColor.white.cgColor
+    }
+}
+
+extension UILabel {
+    func addBackground() {
+        layer.shadowOpacity = 1
+        layer.shadowOffset = CGSize.zero
+        layer.shadowColor = UIColor.darkGray.cgColor
+        layer.backgroundColor = UIColor.white.cgColor
+    }
 }

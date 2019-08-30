@@ -16,8 +16,6 @@ class bottomInterstitialViewController: interstitialViewController {
     
     @IBAction func loadInterstitial(_ sender: Any) {
         sdk?.adService.loadNextAd(forZoneIdentifier: "d15c83757f7581ef", andNotify: self)
-        
-        Leanplum.track("Interstitial Loaded", withParameters: ["Zone":"Bottom"])
     }
     
     override func viewDidLoad() {
@@ -30,7 +28,8 @@ class bottomInterstitialViewController: interstitialViewController {
     @IBAction func showInterstitial(_ sender: Any) {
         ALInterstitialAd.shared().show()
         
-        Leanplum.track("Interstitial Shown", withParameters: ["Zone":"Bottom"])
+        count += 1;
+        Leanplum.track("Bottom Interstitial Shown", withParameters: ["BI Shown":count])
     }
 
 }
