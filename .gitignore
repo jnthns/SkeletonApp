@@ -1,3 +1,4 @@
 AppLovinSDK.framework
 Pods/
 Skeleton App.xcworkspace
+config.swift
