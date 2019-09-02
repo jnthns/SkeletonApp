@@ -12,9 +12,28 @@ import Leanplum
 
 class topRewardsViewController: rewardsViewController {
     
-    @IBOutlet weak var TRLabel: UILabel!
-    
     var topRewards: ALIncentivizedInterstitialAd!
+        
+    @IBOutlet weak var TRLabel: UILabel!
+    @IBOutlet weak var TRCoins: UILabel!
+    @IBOutlet weak var TRButton: UIButton!
+    
+    @IBAction func showVideo(_ sender: Any) {
+        if topRewards.isReadyForDisplay
+        {
+            topRewards.showAndNotify(self)
+            
+            updateCoins(5)
+            delegate?.displayCoins(coins: String(coinAmount))
+            
+            count += 1;
+            Leanplum.track("Top Rewards Video", withParameters: ["TR Shown":count])
+        }
+        else
+        {
+            preloadVideo()
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,21 +44,8 @@ class topRewardsViewController: rewardsViewController {
         topRewards.adVideoPlaybackDelegate = self
     
         statusLabel.addBackground()
-
-    }
-    
-    @IBAction func showVideo(_ sender: Any) {
-        if topRewards.isReadyForDisplay
-        {
-            topRewards.showAndNotify(self)
-            
-            count += 1;
-            Leanplum.track("Top Rewards Video", withParameters: ["TR Shown":count])
-        }
-        else
-        {
-            preloadVideo()
-        }
+        coinsLabel.text = String(coinAmount)
+        TRButton?.addButtonTheme()
     }
     
     func preloadVideo() {

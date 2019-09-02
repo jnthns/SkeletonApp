@@ -13,26 +13,22 @@ import Leanplum
 class rewardsViewController: rootViewController {
     
     @IBOutlet weak var ERLabel: UILabel!
-    @IBOutlet weak var showAd: UIButton!
-    @IBOutlet weak var returnHome: UIButton!
+    @IBOutlet weak var ERCoins: UILabel!
+    
+    @IBOutlet weak var button: UIButton!
+    
+    var coinCount = 0
+    var delegate: coinDelegate?
     
     var interstitial: ALIncentivizedInterstitialAd!
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        interstitial = ALIncentivizedInterstitialAd(zoneIdentifier: "c2437ae94b7a0171")
-        
-        interstitial.adDisplayDelegate = self
-        interstitial.adVideoPlaybackDelegate = self
-        
-        statusLabel.addBackground()
-    }
     
     @IBAction func showRewardedVideo(_ sender: Any) {
         if interstitial.isReadyForDisplay
         {
             interstitial.showAndNotify(self)
+            
+            updateCoins(10)
+            delegate?.displayCoins(coins: String(coinAmount))
             
             count += 1;
             Leanplum.track("Elite Rewards Video", withParameters: ["ER Shown":count])
@@ -43,6 +39,17 @@ class rewardsViewController: rootViewController {
         }
     }
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        interstitial = ALIncentivizedInterstitialAd(zoneIdentifier: "c2437ae94b7a0171")
+        
+        interstitial.adDisplayDelegate = self
+        interstitial.adVideoPlaybackDelegate = self
+        
+        statusLabel.addBackground()
+        button?.addButtonTheme()
+    }
     
     func preloadRewardedVideo() {
         updateStatus("Loading Ad")
@@ -51,10 +58,12 @@ class rewardsViewController: rootViewController {
     
 }
 
+// MARK: Extensions
+
 extension rewardsViewController : ALAdLoadDelegate
 {
     func adService(_ adService: ALAdService, didLoad ad: ALAd) {
-        updateStatus("Press show again if you want to earn coins!")
+        updateStatus("Press again if you want to earn coins!")
         self.ad = ad
     }
     

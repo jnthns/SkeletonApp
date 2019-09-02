@@ -13,6 +13,10 @@ import Leanplum
 class bottomInterstitialViewController: interstitialViewController {
     
     @IBOutlet weak var BILabel: UILabel!
+    @IBOutlet weak var BICoins: UILabel!
+    
+    @IBOutlet weak var biButton: UIButton!
+    @IBOutlet weak var bsButton: UIButton!
     
     @IBAction func loadInterstitial(_ sender: Any) {
         sdk?.adService.loadNextAd(forZoneIdentifier: "d15c83757f7581ef", andNotify: self)
@@ -23,6 +27,9 @@ class bottomInterstitialViewController: interstitialViewController {
      
         ALInterstitialAd.shared().adLoadDelegate = self
         ALInterstitialAd.shared().adDisplayDelegate = self
+        
+        biButton?.addButtonTheme()
+        bsButton?.addButtonTheme()
     }
     
     @IBAction func showInterstitial(_ sender: Any) {

@@ -10,9 +10,21 @@ import UIKit
 import Leanplum
 import AppLovinSDK
 
+protocol coinDelegate
+{
+    func displayCoins(coins: String)
+}
+
 class bannerViewController: rootViewController {
     
     @IBOutlet weak var bannerLabel: UILabel!
+    @IBOutlet weak var bannerCoins: UILabel!
+    
+    @IBOutlet weak var button: UIButton!
+    
+    var coinCount = 0
+    
+    var delegate: coinDelegate?
     
     let adView = ALAdView(size: .sizeBanner())
     
@@ -25,13 +37,16 @@ class bannerViewController: rootViewController {
         adView.translatesAutoresizingMaskIntoConstraints = false
         
         statusLabel.addBackground()
+        button?.addButtonTheme()
     }
     
     @IBAction func showBanner(_ sender: Any) {
-        count += 1;
         adView.loadNextAd()
         self.view.addSubview(adView)
         
+        delegate?.displayCoins(coins: String(coinAmount))
+        
+        count += 1;
         Leanplum.track("Show Banner", withParameters: ["Banners":count])
     }
     
@@ -96,3 +111,5 @@ extension bannerViewController : ALAdViewEventDelegate
         updateStatus("Banner failed to display with error code: \(code)")
     }
 }
+
+

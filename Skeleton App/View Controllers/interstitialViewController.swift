@@ -13,6 +13,10 @@ import Leanplum
 class interstitialViewController: rootViewController {
 
     @IBOutlet weak var interstitialLabel: UILabel!
+    @IBOutlet weak var MICoins: UILabel!
+    
+    @IBOutlet weak var ibutton: UIButton!
+    @IBOutlet weak var sbutton: UIButton!
     
     let interstitial = ALInterstitialAd.shared()
     
@@ -34,6 +38,8 @@ class interstitialViewController: rootViewController {
         interstitial.adDisplayDelegate = self
         
         statusLabel.addBackground()
+        ibutton?.addButtonTheme()
+        sbutton?.addButtonTheme()
     }
     
 }
