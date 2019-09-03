@@ -8,5 +8,7 @@ target 'Skeleton App' do
   # Pods for Skeleton App
   pod 'Leanplum-iOS-SDK', '2.5.1'
   pod 'AppLovinSDK'
+  pod 'Firebase/Analytics'
+
 
 end
